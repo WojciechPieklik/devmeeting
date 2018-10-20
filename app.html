@@ -9,6 +9,7 @@
       <ol>
         <li v-for="l in languages">{{l.name}}</li>
       </ol>
+      <input v-model="newName" type="text" placeholder="language name">
       <button v-on:click="addLanguage()">Add</button>
     </div>
 
@@ -23,14 +24,15 @@
             {id:1, name:'Java w wersji skrypt'},
             {id:2, name:'React'}
           ],
-          counter: 3
+          counter: 3,
+          newName: null
         },
         methods: {
           addLanguage() {
             var i = this.counter++;
             this.languages.push({
               id: i,
-              name: 'new'+i
+              name: this.newName
             });
           }
         }
