@@ -1,19 +1,19 @@
 <template>
   <div>
-    <ProductList :products="products" />
+    <ProductListSorted :products="products" />
     <NewProductForm @add-product="addProduct"/>
   </div>
 </template>
 
 <script>
 
-import ProductList from './ProductList.vue'
+import ProductListSorted from './ProductListSorted.vue'
 import NewProductForm from './NewProductForm.vue'
 
 export default {
   name: 'DevMeeting',
   components: {
-    ProductList,
+    ProductListSorted,
     NewProductForm,
   },
   data() {
