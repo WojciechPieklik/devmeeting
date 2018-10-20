@@ -9,6 +9,7 @@
       <ol>
         <li v-for="l in languages">{{l.name}}</li>
       </ol>
+      <button v-on:click="addLanguage()">Add</button>
     </div>
 
     <!-- 2. To add Vue.js, we can just add a script tag with CDN as a source -->
@@ -21,7 +22,17 @@
             {id:0, name:'Java'},
             {id:1, name:'Java w wersji skrypt'},
             {id:2, name:'React'}
-          ]
+          ],
+          counter: 3
+        },
+        methods: {
+          addLanguage() {
+            var i = this.counter++;
+            this.languages.push({
+              id: i,
+              name: 'new'+i
+            });
+          }
         }
       })
      </script>
