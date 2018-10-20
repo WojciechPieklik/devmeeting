@@ -4,9 +4,16 @@
       <li v-for="l in languages" :key="l.id">{{ l.name }}</li>
     </ol>
     <form @submit.prevent="onSubmit()">
-      <input v-model="newName"
-        type="text" placeholder="language name">
+      <input
+        name="langName"
+        v-model="newName"
+        v-validate="'required|min:3'"
+        type="text"
+        placeholder="language name">
       <button>Add</button>
+      <div v-show="errors.has('langName')">
+        {{ errors.first('langName') }}
+      </div>
     </form>
   </div>
 </template>
@@ -27,11 +34,19 @@ export default {
   },
   methods: {
     onSubmit() {
-      var i = this.counter++;
-      this.languages.push({
-        id: i,
-        name: this.newName,
+
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
+        var i = this.counter++;
+        this.languages.push({
+          id: i,
+          name: this.newName,
+        });
+        this.$validator.reset();
       });
+
     },
   },
 };
