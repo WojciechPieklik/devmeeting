@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProductListSorted :products="products" />
+    <ProductListSorted :products="sharedState.products" />
     <NewProductForm @add-product="addProduct"/>
   </div>
 </template>
@@ -10,20 +10,25 @@
 import ProductListSorted from './ProductListSorted.vue'
 import NewProductForm from './NewProductForm.vue'
 
+import store from '../store.js';
+
 export default {
   name: 'DevMeeting',
   components: {
     ProductListSorted,
     NewProductForm,
   },
+  async created() {
+    store.fetchProducts();
+  },
   data() {
     return {
-      products: [],
+      sharedState: store.state,
     }
   },
   methods: {
     addProduct(product) {
-      this.products.push(product);
+      store.addProduct(product);
     }
   }
 };
