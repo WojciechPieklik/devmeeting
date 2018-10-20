@@ -1,10 +1,13 @@
 <template>
   <div>
     <ol>
-      <li v-for="l in languages">{{l.name}}</li>
+      <li v-for="l in languages" :key="l.id">{{ l.name }}</li>
     </ol>
-    <input v-model="newName" type="text" placeholder="language name">
-    <button v-on:click="addLanguage()">Add</button>
+    <form @submit.prevent="onSubmit()">
+      <input v-model="newName"
+        type="text" placeholder="language name">
+      <button>Add</button>
+    </form>
   </div>
 </template>
 
@@ -23,14 +26,14 @@ export default {
     }
   },
   methods: {
-    addLanguage() {
+    onSubmit() {
       var i = this.counter++;
       this.languages.push({
         id: i,
-        name: this.newName
+        name: this.newName,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
