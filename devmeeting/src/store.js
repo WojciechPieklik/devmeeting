@@ -1,15 +1,36 @@
+import Vue from 'vue';
 import axios from 'axios';
+import createLogger from 'vuex/dist/logger';
+import Vuex from 'vuex';
 
-const store = {
+Vue.use(Vuex);
+
+export default new Vuex.Store ({
   state: {
     products: []
   },
-  async fetchProducts() {
-    this.state.products = await axios.get('http://localhost:3000/products').then(resp=>resp.data);
+  mutations: {
+    addProduct(state,payload) {
+      state.products.push(payload.product);
+    },
+    setProducts(state,payload) {
+      state.products = payload.products;
+    }
   },
-  addProduct(product) {
-    this.state.products.push(product);
-  }
-}
-
-export default store;
+  actions: {
+    addProduct({ commit }, payload) {
+      commit({
+        type: 'addProduct',
+        product: payload
+      });
+    },
+    async getProducts({ commit }) {
+      const payload = await axios.get('http://localhost:3000/products').then(resp=>resp.data);
+      commit({
+        type: 'setProducts',
+        products: payload
+      });
+    }
+  },
+  plugins: [createLogger()]
+});
