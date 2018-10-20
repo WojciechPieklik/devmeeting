@@ -1,25 +1,15 @@
 <template>
-  <div>
-    <ol>
-      <ProductListItem v-for="p in products" :key="p.id" :item="p" />
-    </ol>
-  </div>
+  <li>{{ item.name }}</li>
 </template>
 
 <script>
-import ProductListItem from './ProductListItem.vue';
-
 export default {
-  name: 'ProductList',
+  name: 'ProductListItem',
   props: {
-      products: {
-        type: Array,
+      item: {
         required: true
       }
-  },
-  components: {
-    ProductListItem,
-  }
+    },
 };
 </script>
 
